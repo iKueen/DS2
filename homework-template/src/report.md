@@ -1,10 +1,17 @@
-# 41143263
+# 41048110
 
-作業一
+作業一(Homework Sorting Project)
 
 ## 解題說明
 
-本題要求實現一個遞迴函式，計算從 $1$ 到 $n$ 的連加總和。
+本題要求實作
+排序 n 個數字的函式，包含以下：
+– Insertion Sort
+– Quick Sort (using median-of-three method to choose pivot)
+– Merge Sort
+– Heap Sort
+– Composite Sort
+
 
 ### 解題策略
 
