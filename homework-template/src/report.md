@@ -2,109 +2,76 @@
 
 作業一(Homework Sorting Project)
 
-## 解題說明
+## 1. 解題說明
 
-本題要求實作
-排序 n 個數字的函式，包含以下：
-– Insertion Sort
-– Quick Sort (using median-of-three method to choose pivot)
-– Merge Sort
-– Heap Sort
-– Composite Sort
+### 題目描述
+本作業需完成 5 種排序法的實作，包括：
+- Insertion Sort
+- Quick Sort (using median-of-three method to choose pivot)
+- Merge Sort (using iterative method)
+- Heap Sort
+- Composite Sort
 
+帶入資料量：500，1000，2000，3000，4000，5000
 
 ### 解題策略
+- Insertion Sort：第一種簡單排序，適合小量資料。
+- Quick Sort：使用 median-of-three 選取 pivot，並以 iterative 方式實作避免追加軟體繁複性。
+- Merge Sort：採用底向 bottom-up iterative 合併。
+- Heap Sort：使用簡單的 heapify 程式，完成實作。
+- Composite Sort：根據資料量，小量用 Insertion，大量用 Heap 加速。
 
-1. 使用遞迴函式將問題拆解為更小的子問題：
-   $$\Sigma(n) = n + \Sigma(n-1)$$
-2. 當 $n \leq 1$ 時，返回 $n$ 作為遞迴的結束條件。  
-3. 主程式呼叫遞迴函式，並輸出計算結果。
+## 2. 程式實作
 
-## 程式實作
+使用 C++，分為 Header.h 和 sorting.cpp：
+- Header.h：定義了出所有函式。
+- sorting.cpp：實作所有排序法，資料生成，測量時間，即時顯示。
 
-以下為主要程式碼：
+通過 chrono::high_resolution_clock 計算排序時間，確保高精度。
 
-```cpp
-#include <iostream>
-using namespace std;
+每種排序則獨立使用一份 copy 的原始資料，確保比較公平。
 
-int sigma(int n) {
-    if (n < 0)
-        throw "n < 0";
-    else if (n <= 1)
-        return n;
-    return n + sigma(n - 1);
-}
+## 3. 效能分析
 
-int main() {
-    int result = sigma(3);
-    cout << result << '\n';
-}
-```
+對程式效能進行 Big-O 分析：
 
-## 效能分析
+### 時間複雜度
+- Insertion Sort：O(n^2)
+- Quick Sort：O(n log n)
+- Merge Sort：O(n log n)
+- Heap Sort：O(n log n)
+- Composite Sort：O(n) 或 O(n log n) (根據資料量分分別)
 
-1. 時間複雜度：程式的時間複雜度為 $O(\log n)$。
-2. 空間複雜度：空間複雜度為 $O(100\times \log n + \pi)$。
+### 空間複雜度
+- Insertion Sort：O(1)
+- Quick Sort：O(log n) 至 O(n)
+- Merge Sort：O(n)
+- Heap Sort：O(1)
+- Composite Sort：根據選擇，O(1)~O(n)
 
-## 測試與驗證
+## 4. 測試與驗證
 
-### 測試案例
-
-| 測試案例 | 輸入參數 $n$ | 預期輸出 | 實際輸出 |
-|----------|--------------|----------|----------|
-| 測試一   | $n = 0$      | 0        | 0        |
-| 測試二   | $n = 1$      | 1        | 1        |
-| 測試三   | $n = 3$      | 6        | 6        |
-| 測試四   | $n = 5$      | 15       | 15       |
-| 測試五   | $n = -1$     | 異常拋出 | 異常拋出 |
-
-### 編譯與執行指令
-
+### 編譯指令：
 ```shell
-$ g++ -std=c++17 -o sigma sigma.cpp
-$ ./sigma
-6
+$ g++ sorting.cpp -o sorting.exe
+$ ./sorting.exe
 ```
 
-### 結論
+顯示：
+- 各種資料量 (500, 1000, 2000, 3000, 4000, 5000) 的原始資料
+- 排序後每種排序法的執行時間
+- 排序原始資料都是隨機生成，固定存記，確保各排序公平比較
 
-1. 程式能正確計算 $n$ 到 $1$ 的連加總和。  
-2. 在 $n < 0$ 的情況下，程式會成功拋出異常，符合設計預期。  
-3. 測試案例涵蓋了多種邊界情況（$n = 0$、$n = 1$、$n > 1$、$n < 0$），驗證程式的正確性。
+## 5. 由來與開發報告
 
-## 申論及開發報告
+### 有用到的計算法
+- Insertion 排序：第一種執行說明步驟，第一種數据搭配最等等調整
+- Quick Sort：補教 median-of-three，避免最壞情況，並使用堆積代替遞對
+- Merge Sort：底向 iterative 合併，避免繁複 recursive overhead
+- Heap Sort：帶入 heapify，同時定義最大 heap 的觀念
 
-### 選擇遞迴的原因
+### 開發考量
+- 根據資料量，有效分配 Insertion Sort 與 Heap Sort，優化排序效能
+- 每種排序都有自己獨立設計與定義
 
-在本程式中，使用遞迴來計算連加總和的主要原因如下：
-
-1. **程式邏輯簡單直觀**  
-   遞迴的寫法能夠清楚表達「將問題拆解為更小的子問題」的核心概念。  
-   例如，計算 $\Sigma(n)$ 的過程可分解為：  
-
-   $$
-   \Sigma(n) = n + \Sigma(n-1)
-   $$
-
-   當 $n$ 等於 1 或 0 時，直接返回結果，結束遞迴。
-
-2. **易於理解與實現**  
-   遞迴的程式碼更接近數學公式的表示方式，特別適合新手學習遞迴的基本概念。  
-   以本程式為例：  
-
-   ```cpp
-   int sigma(int n) {
-       if (n < 0)
-           throw "n < 0";
-       else if (n <= 1)
-           return n;
-       return n + sigma(n - 1);
-   }
-   ```
-
-3. **遞迴的語意清楚**  
-   在程式中，每次遞迴呼叫都代表一個「子問題的解」，而最終遞迴的返回結果會逐層相加，完成整體問題的求解。  
-   這種設計簡化了邏輯，不需要額外變數來維護中間狀態。
-
-透過遞迴實作 Sigma 計算，程式邏輯簡單且易於理解，特別適合展示遞迴的核心思想。然而，遞迴會因堆疊深度受到限制，當 $n$ 值過大時，應考慮使用迭代版本來避免 Stack Overflow 問題。
+---
