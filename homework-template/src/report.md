@@ -26,6 +26,131 @@
 使用 C++，分為 Header.h 和 sorting.cpp：
 - Header.h：定義了出所有函式。
 - sorting.cpp：實作所有排序法，資料生成，測量時間，即時顯示。
+  
+  ================================================================
+- Insertion Sort
+  ```
+  void insertionSort(vector<int>& arr) {
+    int n = arr.size();
+    for (int i = 1; i < n; ++i) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            --j;
+        }
+        arr[j + 1] = key;
+    }
+}
+```
+
+  ================================================================
+  
+- Quick Sort (using median-of-three method to choose pivot)
+  ```
+int medianOfThree(vector<int>& arr, int low, int high) {
+    int mid = (low + high) / 2;
+    if (arr[mid] < arr[low]) swap(arr[mid], arr[low]);
+    if (arr[high] < arr[low]) swap(arr[high], arr[low]);
+    if (arr[high] < arr[mid]) swap(arr[high], arr[mid]);
+    return arr[mid];
+}
+
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = medianOfThree(arr, low, high);
+    int left = low, right = high;
+    while (true) {
+        while (arr[left] < pivot) left++;
+        while (arr[right] > pivot) right--;
+        if (left >= right) return right;
+        swap(arr[left++], arr[right--]);
+    }
+}
+
+void quickSort(vector<int>& arr) {
+    int n = arr.size();
+    stack<pair<int, int>> s;
+    s.push({ 0, n - 1 });
+    while (!s.empty()) {
+        int low = s.top().first;
+        int high = s.top().second;
+        s.pop();
+        if (low < high) {
+            int p = partition(arr, low, high);
+            s.push({ low, p });
+            s.push({ p + 1, high });
+        }
+    }
+}
+ ```
+  
+  ================================================================
+  
+- Merge Sort (using iterative method)
+  ```
+void mergePass(vector<int>& arr, vector<int>& temp, int left, int mid, int right) {
+    int i = left, j = mid, k = left;
+    while (i < mid && j < right) {
+        if (arr[i] <= arr[j])
+            temp[k++] = arr[i++];
+        else
+            temp[k++] = arr[j++];
+    }
+    while (i < mid) temp[k++] = arr[i++];
+    while (j < right) temp[k++] = arr[j++];
+}
+
+void mergeSort(vector<int>& arr) {
+    int n = arr.size();
+    vector<int> temp(n);
+    for (int width = 1; width < n; width *= 2) {
+        for (int i = 0; i < n; i += 2 * width) {
+            int left = i;
+            int mid = min(i + width, n);
+            int right = min(i + 2 * width, n);
+            mergePass(arr, temp, left, mid, right);
+        }
+        arr = temp;
+    }
+}
+  ```
+  
+  ================================================================
+  
+- Heap Sort
+  ```
+void heapify(vector<int>& arr, int n, int i) {
+    int largest = i, l = 2 * i + 1, r = 2 * i + 2;
+    if (l < n && arr[l] > arr[largest]) largest = l;
+    if (r < n && arr[r] > arr[largest]) largest = r;
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+        heapify(arr, n, largest);
+    }
+}
+
+void heapSort(vector<int>& arr) {
+    int n = arr.size();
+    for (int i = n / 2 - 1; i >= 0; i--) heapify(arr, n, i);
+    for (int i = n - 1; i > 0; i--) {
+        swap(arr[0], arr[i]);
+        heapify(arr, i, 0);
+    }
+}
+  ```
+  
+  ================================================================
+  
+- Composite Sort
+  ```
+  void compositeSort(vector<int>& arr) {
+    if (arr.size() <= 1000) insertionSort(arr);
+    else heapSort(arr);
+}
+  ```
+  
+  ================================================================
+  
 
 通過 chrono::high_resolution_clock 計算排序時間，確保高精度。
 
