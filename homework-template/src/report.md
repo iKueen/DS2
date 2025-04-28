@@ -27,7 +27,7 @@
 - Header.h：定義了出所有函式。
 - sorting.cpp：實作所有排序法，資料生成，測量時間，即時顯示。
   
-  ================================================================
+  =========================================================
 - Insertion Sort
   ```
   void insertionSort(vector<int>& arr) {
@@ -44,10 +44,10 @@
 }
 
 
-  ================================================================
+  =========================================================
   
 - Quick Sort (using median-of-three method to choose pivot)
-- ```
+```
 int medianOfThree(vector<int>& arr, int low, int high) {
     int mid = (low + high) / 2;
     if (arr[mid] < arr[low]) swap(arr[mid], arr[low]);
@@ -66,7 +66,6 @@ int partition(vector<int>& arr, int low, int high) {
         swap(arr[left++], arr[right--]);
     }
 }
-```
 void quickSort(vector<int>& arr) {
     int n = arr.size();
     stack<pair<int, int>> s;
@@ -82,12 +81,12 @@ void quickSort(vector<int>& arr) {
         }
     }
 }
-
+```
   
-  ================================================================
+=========================================================
   
 - Merge Sort (using iterative method)
- 
+```
 void mergePass(vector<int>& arr, vector<int>& temp, int left, int mid, int right) {
     int i = left, j = mid, k = left;
     while (i < mid && j < right) {
@@ -113,12 +112,12 @@ void mergeSort(vector<int>& arr) {
         arr = temp;
     }
 }
- 
+```
   
   ================================================================
   
 - Heap Sort
-
+```
 void heapify(vector<int>& arr, int n, int i) {
     int largest = i, l = 2 * i + 1, r = 2 * i + 2;
     if (l < n && arr[l] > arr[largest]) largest = l;
@@ -137,7 +136,7 @@ void heapSort(vector<int>& arr) {
         heapify(arr, i, 0);
     }
 }
-
+```
   
   ================================================================
   
