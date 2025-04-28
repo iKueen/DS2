@@ -47,7 +47,7 @@
   ================================================================
   
 - Quick Sort (using median-of-three method to choose pivot)
-  ```
+- ```
 int medianOfThree(vector<int>& arr, int low, int high) {
     int mid = (low + high) / 2;
     if (arr[mid] < arr[low]) swap(arr[mid], arr[low]);
@@ -66,7 +66,7 @@ int partition(vector<int>& arr, int low, int high) {
         swap(arr[left++], arr[right--]);
     }
 }
-
+```
 void quickSort(vector<int>& arr) {
     int n = arr.size();
     stack<pair<int, int>> s;
