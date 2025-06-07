@@ -1,0 +1,21 @@
+n,height,log2n,ratio
+n = 100, height = 15, log2(n) = 6.64386, ratio = 2.25772
+n = 600, height = 24, log2(n) = 9.22882, ratio = 2.60055
+n = 1100, height = 21, log2(n) = 10.1033, ratio = 2.07853
+n = 1600, height = 29, log2(n) = 10.6439, ratio = 2.72458
+n = 2100, height = 24, log2(n) = 11.0362, ratio = 2.17467
+n = 2600, height = 31, log2(n) = 11.3443, ratio = 2.73265
+n = 3100, height = 25, log2(n) = 11.5981, ratio = 2.15553
+n = 3600, height = 30, log2(n) = 11.8138, ratio = 2.53941
+n = 4100, height = 27, log2(n) = 12.0014, ratio = 2.24974
+n = 4600, height = 27, log2(n) = 12.1674, ratio = 2.21904
+n = 5100, height = 26, log2(n) = 12.3163, ratio = 2.11103
+n = 5600, height = 26, log2(n) = 12.4512, ratio = 2.08815
+n = 6100, height = 33, log2(n) = 12.5746, ratio = 2.62434
+n = 6600, height = 26, log2(n) = 12.6883, ratio = 2.04914
+n = 7100, height = 32, log2(n) = 12.7936, ratio = 2.50125
+n = 7600, height = 31, log2(n) = 12.8918, ratio = 2.40463
+n = 8100, height = 28, log2(n) = 12.9837, ratio = 2.15655
+n = 8600, height = 28, log2(n) = 13.0701, ratio = 2.14229
+n = 9100, height = 30, log2(n) = 13.1517, ratio = 2.28108
+n = 9600, height = 29, log2(n) = 13.2288, ratio = 2.19218
